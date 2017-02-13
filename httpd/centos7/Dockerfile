@@ -13,6 +13,9 @@ EXPOSE 80
 
 # Simple startup script to avoid some issues observed with container restart
 ADD run-httpd.sh /run-httpd.sh
+RUN chgrp -R 0 /some/directory
+RUN chmod -R g+rw /some/directory
+RUN find /some/directory -type d -exec chmod g+x {} +
 RUN chmod -v +x /run-httpd.sh
 
 CMD ["/run-httpd.sh"]
